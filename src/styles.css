@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/* change green to Couchbase red */
+.home-page .banner {
+    background: #cf2e2e;
+}
+
+.nav-pills.outline-active .nav-link.active {
+    border-bottom: 2px solid #cf2e2e!important;
+    color: #cf2e2e!important;
+}
+
+a {
+    color: #cf2e2e;
+    text-decoration: none;
+}
+
+a:hover{
+    color:#cf2e2e;
+}
+
+.btn-primary {
+    background-color: #cf2e2e;
+    border-color: #cf2e2e;
+}
+
+.btn-primary:hover{
+    background-color:#ce7f7f;
+    border-color:#ce7f7f
+}
+
+.btn-outline-primary {
+    color: #cf2e2e;
+    border-color: #cf2e2e;
+}
+
+.btn-outline-primary:hover{
+    color:#fff;
+    background-color:#cf2e2e;
+    border-color:#cf2e2e
+}
+
+.navbar-brand {
+    color: #cf2e2e!important;
+}
+
+/* animation/spinner for adaptive dashboard */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
