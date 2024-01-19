@@ -23,6 +23,23 @@ export class ArticlesService {
       params[key] = config.filters[key];
     });
 
+    // **** custom adaptive *****
+    if(config.type === 'adaptiveFeed') {
+      return this.apiService
+      .get(
+        '/articles/adaptive',
+        new HttpParams({ fromObject: params })
+      );
+    } else if(config.type === 'adaptiveDashboard') {
+      // TODO: this API request is wasted since Adaptive Dashboard doesn't show articles
+      return this.apiService
+      .get(
+        '/articles/adaptive',
+        new HttpParams({ fromObject: params })
+      );
+    }
+
+    
     return this.apiService
     .get(
       '/articles' + ((config.type === 'feed') ? '/feed' : ''),

@@ -1,6 +1,7 @@
 <app-article-preview
   *ngFor="let article of results; trackBy: trackByFn"
-  [article]="article">
+  [article]="article"
+  [hidden]="showAdaptiveDashboard">
 </app-article-preview>
 
 <div class="app-article-preview"
@@ -13,7 +14,23 @@
   No articles are here... yet.
 </div>
 
-<nav [hidden]="loading || totalPages.length <= 1">
+<div class="adaptive-dashboard"
+  [hidden]="!showAdaptiveDashboard">
+  <br />
+  <h2>Adaptive Dashboard</h2>
+  <p>This is for moderators/administrators to generate adaptive content automatically.</p>
+
+  <script type='module' src='https://us-west-2b.online.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js'></script><tableau-viz id='tableau-viz' src='https://us-west-2b.online.tableau.com/t/couchbasetableaupartnerprogram/views/adaptiveposts/Sheet1' width='1536' height='702' hide-tabs toolbar='bottom' ></tableau-viz>
+
+  <input type="text" *ngIf="!isGenerateSummaryLoading" [(ngModel)]="rawData" placeholder="Enter Raw Data">
+  <input type="text" *ngIf="!isGenerateSummaryLoading" [(ngModel)]="tag" placeholder="Enter Tag">
+  <button (click)="sendPostRequest()" *ngIf="!isGenerateSummaryLoading">Generate Summary</button>
+  <div *ngIf="isGenerateSummaryLoading" class="spinner"></div>
+  <!-- <a href="/biz/boz">{{responseMessage}}</a> -->
+
+</div>
+
+<nav [hidden]="loading || totalPages.length <= 1 || showAdaptiveDashboard">
   <ul class="pagination">
 
     <li class="page-item"

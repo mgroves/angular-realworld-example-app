@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   };
   tags: Array<string> = [];
   tagsLoaded = false;
+  showAdaptiveDashboard = false;
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
     .subscribe(tags => {
       this.tags = tags;
       this.tagsLoaded = true;
+      this.showAdaptiveDashboard = false;
       this.cd.markForCheck();
     });
   }
@@ -53,8 +55,10 @@ export class HomeComponent implements OnInit {
   }
 
   setListTo(type: string = '', filters: Object = {}) {
+    this.showAdaptiveDashboard = (type === 'adaptiveDashboard');
+
     // If feed is requested but user is not authenticated, redirect to login
-    if (type === 'feed' && !this.isAuthenticated) {
+    if ((type === 'feed' || type === 'adaptiveFeed') && !this.isAuthenticated) {
       this.router.navigateByUrl('/login');
       return;
     }
