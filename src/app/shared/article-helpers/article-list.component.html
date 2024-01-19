@@ -25,8 +25,15 @@
   <input type="text" *ngIf="!isGenerateSummaryLoading" [(ngModel)]="rawData" placeholder="Enter Raw Data">
   <input type="text" *ngIf="!isGenerateSummaryLoading" [(ngModel)]="tag" placeholder="Enter Tag">
   <button (click)="sendPostRequest()" *ngIf="!isGenerateSummaryLoading">Generate Summary</button>
-  <div *ngIf="isGenerateSummaryLoading" class="spinner"></div>
-  <!-- <a href="/biz/boz">{{responseMessage}}</a> -->
+  <div *ngIf="isGenerateSummaryLoading" class="loading-container">
+    <div class="avatar-container">
+      <div class="avatar-label">summary-bot</div>
+      <img src="https://picsum.photos/seed/summary-bot/512" class="avatar-image">
+    </div>
+    <div class="speech-balloon">
+      <p class="loading-text">{{ currentMessage }}</p>
+    </div>
+  </div>
 
 </div>
 

@@ -32,6 +32,18 @@ export class ArticleListComponent {
   rawData: string = '';
   tag: string = '';
   isGenerateSummaryLoading: boolean = false;
+  loadingMessages = [
+    "Hi, I'm summary-bot! I'll create something cool with the data you're working on.",
+    "I'm working on your content now...",
+    "Someone forgot to oil the robots...",
+    "Just a bit longer, I'm not a coffee machine you know...",
+    "Insert clever banter here...",
+    "Brewing up some fresh pixels...",
+    "Just loading, or maybe contemplating existence...",
+    "Turning 1s and 0s into something cool...",
+    "Patience is a virtue, loading is a test...",
+  ];
+  currentMessage = '';
 
   query: ArticleListConfig;
   results: Article[];
@@ -71,22 +83,42 @@ export class ArticleListComponent {
 
   sendPostRequest() {
     this.isGenerateSummaryLoading = true;
+    this.changeMessage();
     const postData = { rawData: this.rawData, tag: this.tag };
-    const url = environment.api_url + '/api/articles/generateSummary';
+    const url = environment.api_url + '/articles/generateSummary';
 
     this.http.post(url, postData).subscribe({
       next: (response: any) => {
         this.isGenerateSummaryLoading = false;
+        this.currentMessage = '';
         console.log(response.slug);
         //this.responseMessage = response.message;
         this.cd.detectChanges();
       },
       error: (error) => {
         this.isGenerateSummaryLoading = false;
+        this.currentMessage = '';
         console.error('There was an error!', error);
         this.cd.detectChanges();
       }
     });
+  }
+
+  changeMessage() {
+    console.log("in changeMessage!");
+    let messageIndex = 0;
+    this.currentMessage = this.loadingMessages[messageIndex++];
+    const messageInterval = setInterval(() => {
+      if (!this.isGenerateSummaryLoading || messageIndex >= this.loadingMessages.length) {
+        clearInterval(messageInterval);
+        return;
+      }
+      this.currentMessage = this.loadingMessages[messageIndex++];
+      this.cd.detectChanges();
+      if(messageIndex >= this.loadingMessages.length) {
+        messageIndex = 0;
+      }
+    }, 6000); // Change message every 3 seconds
   }
 }
 
