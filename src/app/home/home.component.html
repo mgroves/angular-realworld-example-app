@@ -31,11 +31,13 @@
               <a class="nav-link"
               [ngClass]="{'active': listConfig.type === 'adaptiveFeed'}"
               (click)="setListTo('adaptiveFeed')"
+              *appShowAuthed="true"
               >Adaptive Feed ✨</a>
             </li>
             <li class="nav-item">
               <a class="nav-link"
               [ngClass]="{'active': listConfig.type === 'adaptiveDashboard'}"
+              *appShowAuthed="true"
               (click)="setListTo('adaptiveDashboard')"
               >Adaptive Dashboard ✨</a>
             </li>

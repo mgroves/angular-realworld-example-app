@@ -29,8 +29,8 @@ export class ArticleListComponent {
   }
 
   // for summary generator
-  rawData: string = '';
-  tag: string = '';
+  // rawData: string = '';
+  // tag: string = '';
   isGenerateSummaryLoading: boolean = false;
   loadingMessages = [
     "Hi, I'm summary-bot! I'll create something cool with the data you're working on.",
@@ -84,7 +84,8 @@ export class ArticleListComponent {
   sendPostRequest() {
     this.isGenerateSummaryLoading = true;
     this.changeMessage();
-    const postData = { rawData: this.rawData, tag: this.tag };
+    const postData = { rawData: "", tag: "" };
+    //const postData = { rawData: this.rawData, tag: this.tag };
     const url = environment.api_url + '/articles/generateSummary';
 
     this.http.post(url, postData).subscribe({
@@ -92,7 +93,6 @@ export class ArticleListComponent {
         this.isGenerateSummaryLoading = false;
         this.currentMessage = '';
         console.log(response.slug);
-        //this.responseMessage = response.message;
         this.cd.detectChanges();
       },
       error: (error) => {
@@ -105,7 +105,6 @@ export class ArticleListComponent {
   }
 
   changeMessage() {
-    console.log("in changeMessage!");
     let messageIndex = 0;
     this.currentMessage = this.loadingMessages[messageIndex++];
     const messageInterval = setInterval(() => {
